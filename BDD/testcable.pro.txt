@@ -1,0 +1,21 @@
+QT += core sql
+CONFIG += c++17
+
+# Si tu utilises Qt Widgets :
+# CONFIG += widgets
+
+TARGET = Testcable
+TEMPLATE = app
+
+# Liste des fichiers source
+SOURCES += \
+    main.cpp
+
+# Liste des fichiers d'en-tête (s'ils sont présents)
+HEADERS += \
+
+# Liste des fichiers UI (s'ils sont présents)
+FORMS += \
+
+# Liste des fichiers de ressources (s'ils sont présents)
+RESOURCES += \
