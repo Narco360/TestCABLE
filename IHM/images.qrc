@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>USBRS232.png</file>
+        <file>USBRS485.png</file>
+        <file>USBTTL3V3.png</file>
+        <file>USBTTL3V3REG.png</file>
+        <file>USBTTL5V.png</file>
+    </qresource>
+</RCC>

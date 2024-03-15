@@ -12,7 +12,7 @@ void ReadChip::populateDeviceInfo(QStandardItemModel *model)
     DWORD numDevs;
     ftStatus = FT_CreateDeviceInfoList(&numDevs);
     if (ftStatus == FT_OK) {
-        qDebug() << "Number of devices is " << numDevs;
+        //qDebug() << "Number of devices is " << numDevs;
     }
     if (numDevs > 0) {
         devInfo = (FT_DEVICE_LIST_INFO_NODE*)malloc(sizeof(FT_DEVICE_LIST_INFO_NODE)*numDevs);
@@ -34,6 +34,6 @@ void ReadChip::populateDeviceInfo(QStandardItemModel *model)
         }
     }
     QStringList headers;
-    headers << "Device :" << "Description :" << "Serial ID" << "ChipID" << "LocationID" ;
+    headers << "Device :" << "Description :" << "Serial ID" << "ChipID" << "LocationID" /*<< "Type de Chip" << "flag"*/;
     model->setHorizontalHeaderLabels(headers);
 }

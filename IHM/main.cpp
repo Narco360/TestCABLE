@@ -1,16 +1,15 @@
 #include "testcable.h"
 #include <QApplication>
 #include <QDebug>
-#include <iostream>
-using namespace std;
+//#include <iostream> using namespace std;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     TestCable w;
     w.show();
-    //cout << "TEST" << endl;
 
-    //Debut test
+
+    //Debut test Detection des devices.
     /*
     FT_STATUS ftStatus;
     FT_DEVICE_LIST_INFO_NODE *devInfo;

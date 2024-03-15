@@ -1,10 +1,14 @@
 #ifndef TESTCABLE_H
 #define TESTCABLE_H
 
+#include <QCloseEvent>
+#include <QMessageBox>
 #include <QComboBox>
 #include <QPushButton>
 #include <QWidget>
+
 #include "readchip.h"
+#include "aide.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,9 +24,8 @@ public:
     TestCable(QWidget *parent = nullptr);
     ~TestCable();
 
-
-private slots:
-    void sltDebloquer(int index);
+protected:
+    void closeEvent(QCloseEvent *event) override;
 
 private:
     //1.
@@ -35,6 +38,11 @@ private:
     void scanAndPopulateDeviceInfo();
     ReadChip *readChip;
     QStandardItemModel *model;
+
+private slots:
+    void sltDebloquer(int index);
+    void afficherAide();
+
 
 };
 #endif // TESTCABLE_H
