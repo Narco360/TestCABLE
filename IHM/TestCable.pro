@@ -1,5 +1,5 @@
 QT       += core gui
-
+QT += sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -9,17 +9,26 @@ CONFIG += c++17
 
 # Liste des fichiers source
 SOURCES += \
+    Lib/sqlite3/sqlite-amalgamation-3430100/shell.c \
+    Lib/sqlite3/sqlite-amalgamation-3430100/sqlite3.c \
     aide.cpp \
     clicablelabel.cpp \
+    datecode.cpp \
     main.cpp \
+    progchip.cpp \
     readchip.cpp \
     testcable.cpp
 
 # Liste des fichiers d'en-tête
 HEADERS += \
+    Lib/libFTD2XX/ftd2xx.h \
+    Lib/sqlite3/sqlite-amalgamation-3430100/sqlite3.h \
+    Lib/sqlite3/sqlite-amalgamation-3430100/sqlite3ext.h \
     aide.h \
     clicablelabel.h \
+    datecode.h \
     ftd2xx.h \
+    progchip.h \
     readchip.h \
     testcable.h
 
@@ -33,23 +42,38 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-# Spécification du chemin vers la bibliothèque FTD2XX
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../libFTD2XX/amd64 -lftd2xx
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../libFTD2XX/amd64 -lftd2xx
-
-# Inclusion et dépendance pour la bibliothèque FTD2XX
-INCLUDEPATH += $$PWD/../libFTD2XX
-DEPENDPATH += $$PWD/../libFTD2XX
-
-# Spécification du chemin vers la bibliothèque SQLite
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../sqlite3 -lsqlite3
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../sqlite3 -lsqlite3
-
-# Inclusion et dépendance pour la bibliothèque SQLite
-INCLUDEPATH += $$PWD/../sqlite3/sqlite-amalgamation-3430100
-DEPENDPATH += $$PWD/../sqlite3/sqlite-amalgamation-3430100
+copy.path = $$OUT_PWD
+copy.files = BDD.db
+QMAKE_PRE_LINK += $$copy
 
 DISTFILES += \
+    BDD.db \
+    Lib/libFTD2XX/Static/amd64/ftd2xx.lib \
+    Lib/libFTD2XX/Static/i386/ftd2xx.lib \
+    Lib/libFTD2XX/amd64/ftbusui.dll \
+    Lib/libFTD2XX/amd64/ftcserco.dll \
+    Lib/libFTD2XX/amd64/ftd2xx.lib \
+    Lib/libFTD2XX/amd64/ftd2xx64.dll \
+    Lib/libFTD2XX/amd64/ftdibus.sys \
+    Lib/libFTD2XX/amd64/ftlang.dll \
+    Lib/libFTD2XX/amd64/ftser2k.sys \
+    Lib/libFTD2XX/amd64/ftserui2.dll \
+    Lib/libFTD2XX/ftdibus.cat \
+    Lib/libFTD2XX/ftdibus.inf \
+    Lib/libFTD2XX/ftdiport.cat \
+    Lib/libFTD2XX/ftdiport.inf \
+    Lib/libFTD2XX/i386/ftbusui.dll \
+    Lib/libFTD2XX/i386/ftcserco.dll \
+    Lib/libFTD2XX/i386/ftd2xx.dll \
+    Lib/libFTD2XX/i386/ftd2xx.lib \
+    Lib/libFTD2XX/i386/ftdibus.sys \
+    Lib/libFTD2XX/i386/ftlang.dll \
+    Lib/libFTD2XX/i386/ftser2k.sys \
+    Lib/libFTD2XX/i386/ftserui2.dll \
+    Lib/sqlite3/sqlite3.def \
+    Lib/sqlite3/sqlite3.dll \
+    Lib/sqlite3/sqlite3.exp \
+    Lib/sqlite3/sqlite3.lib \
     USBRS232.jpg \
     USBRS485.jpg \
     USBTTL3V3.jpg \
@@ -58,3 +82,15 @@ DISTFILES += \
 
 RESOURCES += \
     images.qrc
+
+INCLUDEPATH += $$PWD/Lib/libFTD2XX
+DEPENDPATH += $$PWD/Lib/libFTD2XX/amd64
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/Lib/libFTD2XX/amd64/ -lftd2xx
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/Lib/libFTD2XX/amd64/ -lftd2xx
+
+INCLUDEPATH += $$PWD/Lib/sqlite3/sqlite-amalgamation-3430100
+DEPENDPATH += $$PWD/Lib/sqlite3
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/Lib/sqlite3/ -lsqlite3
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/Lib/sqlite3/ -lsqlite3

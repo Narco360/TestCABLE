@@ -5,5 +5,7 @@
         <file>USBTTL3V3.png</file>
         <file>USBTTL3V3REG.png</file>
         <file>USBTTL5V.png</file>
+        <file>icone.ico</file>
+        <file>CheckMark.png</file>
     </qresource>
 </RCC>

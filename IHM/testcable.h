@@ -1,3 +1,11 @@
+/******************************************************************************
+* Nom du fichier : testcable.h
+* Auteur : Rossetto-Giaccherino François
+* Date de création : 27/02/24 (27 Fevrier 2024)
+* Date de dernière modification : 29/03/24
+* Description : En-Tete de testcable.cpp, fichier qui gere la fenetre principale TestCable. Classe de base du projet TestCable
+******************************************************************************/
+
 #ifndef TESTCABLE_H
 #define TESTCABLE_H
 
@@ -6,9 +14,15 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QWidget>
+#include <QtSql>
+#include <QFileDialog>
+#include <QSettings>
+#include <QDir>
+
 
 #include "readchip.h"
 #include "aide.h"
+#include "datecode.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,25 +38,41 @@ public:
     TestCable(QWidget *parent = nullptr);
     ~TestCable();
 
+    int index;
+    int nombreChip;
 protected:
     void closeEvent(QCloseEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 
 private:
-    //1.
-    void debloquerProg(QComboBox *unlocker, QPushButton *lock);
-    Ui::TestCable *ui;
-    QPushButton *lock; // Déclaration du bloc
-    QComboBox *unlocker; // Déclaration de la "clé" pour le débloquer
+    void saveSettings(const QString &databaseFilePath, const QString &testeur);
+    void loadSettings();
 
-    //2.
+
+
+    Ui::TestCable *ui;
+
+
+
     void scanAndPopulateDeviceInfo();
     ReadChip *readChip;
     QStandardItemModel *model;
 
+    Aide *fenetreAide;
+
+
+    void setupDatabase(const QString &databaseFilePath);
+
+
+public slots:
+    void updateCboProg(int index);
+    void appendToConsole(const QString &text);
+    void numDevsCheck(int value);
+    void cboProgIndexCheck(int value);
 private slots:
-    void sltDebloquer(int index);
+
+    void bloqueur();
     void afficherAide();
-
-
+    void getDir();
 };
 #endif // TESTCABLE_H
